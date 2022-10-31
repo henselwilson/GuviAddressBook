@@ -19,7 +19,7 @@ app = FastAPI()
 
 @app.get('/')
 def home():
-    data = { 'inner':{'in':'core'}}
+    data = { 'mesage': 'Welcome to Address Book'}
     return data
 @app.post('/add')
 def add_address(request: address, db: Session = Depends(get_db)):
