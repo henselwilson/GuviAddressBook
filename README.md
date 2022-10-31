@@ -7,4 +7,9 @@ Users can add addresses in the form of coordinates and in addition you can recei
 
 Clone this project from git to your local directory.
 
-Create a virtual environmenr
+Create a virtual environment and install all the requirements in the requirements.txt file.
+
+Open a terminal/command prompt and navigate into the project 'src' folder.
+
+Run the command "uvicorn main:app --reload" to run the server
+
