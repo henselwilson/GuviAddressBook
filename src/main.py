@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 import geopy.distance
 from database import engine, SessionLocal
-from schemas import address
+from schemas import address, retriever
 import models
 import uvicorn
 
@@ -34,21 +34,27 @@ def add_address(request: address, db: Session = Depends(get_db)):
 
     return new_addr
 
-@app.get('/retrieve')
-def add_address(request: address, db: Session = Depends(get_db)):
+@app.post('/retrieve')
+def add_address(request: retriever, db: Session = Depends(get_db)):
     locLat=request.addressLat
     locLong=request.addressLong
     dist_range=request.rang
     coord=(locLat,locLong)
+    print(coord)
     dbs = db.query(models.address).all()
     result=[]
     for row in dbs:
-        lat1=row['addressLat']
-        long1=row['addressLong']
+        lat1=row.addressLat
+        print(lat1)
+        long1=row.addressLong
+        print(long1)
         coord1=(lat1,long1)
-        dist=geopy.distance.geodesic(coord,coord1)
+        dist=geopy.distance.geodesic(coord,coord1).km
+        print(dist)
         if dist<dist_range:
-            result.append()
+            print(row)
+            result.append(row)
+
     return result
 """
 if __name__ == '__main__':
