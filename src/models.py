@@ -9,3 +9,4 @@ class address(Base):
     addressLong = _sql.Column(_sql.Float,index=True)
 
 
+
